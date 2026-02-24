@@ -23,3 +23,63 @@
 #2. kirje sijaitsee maassa joka on hyvin köyhä
 #3. Kirje sijaitsee samassa maassa mistä Dracula on kotoisin.
 
+esineet = [
+    {   "nimi": "Kultainen teelusikka",
+        "maa": "Ruotsi",
+        "vihje1": "Kultainen teelusikka sijaitsee maassa, joka tunnetaan kolmesta kruunusta.",
+        "vihje2": "Kultainen teelusikka sijaitsee maassa, jossa on paremmat lihapullat.",
+        "vihje3": "Kultainen teelusikka sijaitsee maassa, jossa juhlitaan keskikesän juhlaa."
+    },
+    {"nimi": "Taskukello",
+        "maa": "Italia",
+        "vihje1": "Taskukello sijaitsee maassa, jossa Egyptin prinssi syntyi.",
+        "vihje2": "Taskukello sijaitsee maassa, joka tunnetaan eräästä diktaattorista.",
+        "vihje3": "Taskukello sijaitsee maassa, jossa syödään pizzaa ja pastaa, Tollo!"
+    },
+    {   "nimi": "Kaulakoru",
+        "maa": "Englanti",
+        "vihje1": "Kaulakoru sijaitsee maassa, jossa sinua tarkkaillaan jatkuvasti.",
+        "vihje": "Kaulakoru sijaitsee maassa, jossa sää on yleensä kamala.",
+        "vihje3": "Kaulakoru sijaitsee maassa, jossa juodaan paljon teetä."
+    },
+    {   "nimi": "Nahkahanskat",
+        "maa": "Ranksa",
+        "vihje1": "Nahkahanskat sijaitsevat maassa, jossa ilma savuaa.",
+        "vihje2": "Nahkahanskat sijaitsevat maassa, johon kaikki haluavat matkustaa, mutta eivät pidä paikallisista.",
+        "vihje3": "Nahkahanskat sijaitsevat maassa, jossa patonki ja croissantit ovat iso juttu."
+    },
+    {  "nimi": "Kirje",
+        "maa": "Romania",
+        "vihje1": "Kirje sijaitsee maassa, jossa jokainen ajaa vanhalla mersulla.",
+        "vihje2": "Kirje sijaitsee maassa, joka on hyvin köyhä.",
+        "vihje3": "Kirje sijaitsee maassa, mistä Dracula on kotoisin."
+    }
+]
+
+#Funktio vihjeelle
+yritykset = 0
+nykyinen_esine = 0
+
+def anna_vihje():
+    esine=esineet[nykyinen_esine]
+    if yritykset == 0:
+        return esine["vihje1"]
+    elif yritykset == 1:
+        return esine["vihje2"]
+    else:
+        return esine["vihje3"]
+
+#Funktio joka tarkastaa onko pelaaja siinä maassa jossa vihje on
+def tarkistus_maa_oikea(pelaajan_maa,nykyinen_esine,esineet):
+    esine=esineet[nykyinen_esine]
+    return pelaajan_maa == esine["maa"]
+#Funktio jos pelaaja on lentänyt oikeaan maahan
+#pelaajan_maa muuttuja pitää esitellä kun haetaan tietokannasta oikea maa.
+if tarkistus_maa_oikea(pelaajan_maa, nykyinen_esine, esineet):
+    print("Olet löytänyt esineen: ", esineet[nykyinen_esine]["nimi"])
+    nykyinen_esine += 1
+    yritykset = 0
+else:
+    yritykset += 1
+    print("Väärä maa!!!")
+    print("Vihje: ", anna_vihje())
