@@ -83,3 +83,4 @@ else:
     yritykset += 1
     print("Väärä maa!!!")
     print("Vihje: ", anna_vihje())
+#tee hakemis funktio tietokannasta
