@@ -84,3 +84,68 @@ else:
     print("Väärä maa!!!")
     print("Vihje: ", anna_vihje())
 #tee hakemis funktio tietokannasta
+
+#CREATE TABLE game (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    -- Pelaajan nimi
+    screen_name VARCHAR(40) NOT NULL,
+
+    -- Pelaajan nykyinen sijainti (ICAO-koodi)
+    location VARCHAR(10),
+    FOREIGN KEY (location) REFERENCES airport(ident),
+
+    -- CO2-kulutus ja budjetti
+    co2_consumed FLOAT DEFAULT 0,
+    co2_budget FLOAT DEFAULT 5000,
+
+    -- Esineiden eteneminen
+    current_item INT DEFAULT 0,   -- 0 = ensimmäinen esine
+    attempts INT DEFAULT 0        -- vihjeiden määrä
+);
+
+#CREATE TABLE flight_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game_id INT NOT NULL,
+    from_airport VARCHAR(10),
+    to_airport VARCHAR(10),
+    distance FLOAT,
+    co2 FLOAT,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (game_id) REFERENCES game(id)
+);
+
+#UPDATE game SET attempts = attempts + 1 WHERE id = ?;
+
+#UPDATE game
+SET current_item = current_item + 1,
+    attempts = 0
+WHERE id = ?;
+
+#CREATE TABLE game (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    screen_name VARCHAR(40) NOT NULL,
+
+    -- Pelaajan nykyinen sijainti (ICAO)
+    location VARCHAR(10),
+    FOREIGN KEY (location) REFERENCES airport(ident),
+
+    -- CO2-tiedot
+    co2_consumed FLOAT DEFAULT 0,
+    co2_budget FLOAT DEFAULT 5000,
+
+    -- Esinepeli
+    current_item INT DEFAULT 0,
+    attempts INT DEFAULT 0
+);
+
+#CREATE TABLE flight_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game_id INT NOT NULL,
+    from_airport VARCHAR(10),
+    to_airport VARCHAR(10),
+    distance FLOAT,
+    co2 FLOAT,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (game_id) REFERENCES game(id)
+);
