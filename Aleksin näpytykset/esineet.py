@@ -86,63 +86,24 @@ else:
 #tee hakemis funktio tietokannasta
 
 
-CREATE TABLE iso_country (
-    iso_country CHAR(2) PRIMARY KEY,
-    name VARCHAR(100),
-    continent VARCHAR(10),
-    wikipedia_link VARCHAR(255),
-    keywords VARCHAR(255)
-);
+SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE TABLE airport (
-    ident VARCHAR(10) PRIMARY KEY,
-    id INT,
-    type VARCHAR(20),
-    name VARCHAR(100),
-    latitude_deg DOUBLE,
-    longitude_deg DOUBLE,
-    elevation_ft INT,
-    continent VARCHAR(10),
-    iso_country CHAR(2),
-    iso_region VARCHAR(10),
-    municipality VARCHAR(100),
-    scheduled_service VARCHAR(10),
-    gps_code VARCHAR(10),
-    iata_code VARCHAR(10),
-    local_code VARCHAR(10),
-    home_link VARCHAR(255),
-    wikipedia_link VARCHAR(255),
-    keywords VARCHAR(255),
-    FOREIGN KEY (iso_country) REFERENCES iso_country(iso_country)
-);
+DROP TABLE game;
+DROP TABLE goal;
+DROP TABLE goal_reached;
+DROP TABLE ports;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE game (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    screen_name VARCHAR(40) NOT NULL,
+    screen_name VARCHAR(40),
     location VARCHAR(10),
     co2_consumed FLOAT DEFAULT 0,
     co2_budget FLOAT DEFAULT 5000,
     current_item INT DEFAULT 0,
     attempts INT DEFAULT 0,
     FOREIGN KEY (location) REFERENCES airport(ident)
-);
-
-CREATE TABLE goal (
-    id INT PRIMARY KEY,
-    name VARCHAR(40),
-    description VARCHAR(255),
-    icon VARCHAR(255),
-    target VARCHAR(40),
-    target_minvalue INT,
-    target_maxvalue INT,
-    target_text VARCHAR(255)
-);
-
-CREATE TABLE goal_reached (
-    game_id INT,
-    goal_id INT,
-    FOREIGN KEY (game_id) REFERENCES game(id),
-    FOREIGN KEY (goal_id) REFERENCES goal(id)
 );
 
 CREATE TABLE item (
@@ -152,16 +113,5 @@ CREATE TABLE item (
     vihje1 VARCHAR(255),
     vihje2 VARCHAR(255),
     vihje3 VARCHAR(255),
-    FOREIGN KEY (maa) REFERENCES iso_country(iso_country)
-);
-
-CREATE TABLE flight_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    game_id INT,
-    from_airport VARCHAR(10),
-    to_airport VARCHAR(10),
-    distance_km FLOAT,
-    co2_used FLOAT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (game_id) REFERENCES game(id)
+    FOREIGN KEY (maa) REFERENCES country(code)
 );
