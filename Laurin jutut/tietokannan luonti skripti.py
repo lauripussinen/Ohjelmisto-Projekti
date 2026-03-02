@@ -34,14 +34,6 @@ ports;
 SET
 FOREIGN_KEY_CHECKS = 1;
 
-alter
-table
-airport
-add
-unique
-key
-ident_unique(ident);
-
 CREATE
 TABLE
 game(
@@ -52,18 +44,10 @@ PRIMARY
 KEY,
 screen_name
 VARCHAR(40)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+NULL,
 location
 VARCHAR(40)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+NULL,
 co2_consumed
 FLOAT
 DEFAULT
@@ -79,65 +63,30 @@ DEFAULT
 attempts
 INT
 DEFAULT
-0,
-FOREIGN
-KEY(location)
-REFERENCES
-airport(ident)
+0
 )
-ENGINE = InnoDB
 DEFAULT
-CHARSET = latin1
-COLLATE = latin1_swedish_ci;
+CHARSET = latin1;
 
-CREATE
-TABLE
-item(
-    id
-INT
-AUTO_INCREMENT
-PRIMARY
-KEY,
-nimi
-VARCHAR(100)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+create
+table
+item
+(
+    id           int auto_increment
+primary key,
+nimi         varchar(100)
+null,
 maa
-VARCHAR(40)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+varchar(40)
+null,
 vihje1
-VARCHAR(255)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+varchar(255)
+null,
 vihje2
-VARCHAR(255)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
+varchar(255)
+null,
 vihje3
-VARCHAR(255)
-CHARACTER
-SET
-latin1
-COLLATE
-latin1_swedish_ci,
-FOREIGN
-KEY(maa)
-REFERENCES
-country(iso_country)
-) ENGINE = InnoDB
-DEFAULT
-CHARSET = latin1
-COLLATE = latin1_swedish_ci;
+varchar(255)
+null
+)
+charset = latin1;
