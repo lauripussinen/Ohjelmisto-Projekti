@@ -85,67 +85,62 @@ else:
     print("Vihje: ", anna_vihje())
 #tee hakemis funktio tietokannasta
 
-#CREATE TABLE game (
-    id INT AUTO_INCREMENT PRIMARY KEY,
 
-    -- Pelaajan nimi
-    screen_name VARCHAR(40) NOT NULL,
-
-    -- Pelaajan nykyinen sijainti (ICAO-koodi)
-    location VARCHAR(10),
-    FOREIGN KEY (location) REFERENCES airport(ident),
-
-    -- CO2-kulutus ja budjetti
-    co2_consumed FLOAT DEFAULT 0,
-    co2_budget FLOAT DEFAULT 5000,
-
-    -- Esineiden eteneminen
-    current_item INT DEFAULT 0,   -- 0 = ensimmäinen esine
-    attempts INT DEFAULT 0        -- vihjeiden määrä
+CREATE TABLE iso_country (
+    iso_country CHAR(2) PRIMARY KEY,
+    name VARCHAR(100),
+    continent VARCHAR(10),
+    wikipedia_link VARCHAR(255),
+    keywords VARCHAR(255)
 );
 
-#CREATE TABLE flight_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    game_id INT NOT NULL,
-    from_airport VARCHAR(10),
-    to_airport VARCHAR(10),
-    distance FLOAT,
-    co2 FLOAT,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (game_id) REFERENCES game(id)
+CREATE TABLE airport (
+    ident VARCHAR(10) PRIMARY KEY,
+    id INT,
+    type VARCHAR(20),
+    name VARCHAR(100),
+    latitude_deg DOUBLE,
+    longitude_deg DOUBLE,
+    elevation_ft INT,
+    continent VARCHAR(10),
+    iso_country CHAR(2),
+    iso_region VARCHAR(10),
+    municipality VARCHAR(100),
+    scheduled_service VARCHAR(10),
+    gps_code VARCHAR(10),
+    iata_code VARCHAR(10),
+    local_code VARCHAR(10),
+    home_link VARCHAR(255),
+    wikipedia_link VARCHAR(255),
+    keywords VARCHAR(255),
+    FOREIGN KEY (iso_country) REFERENCES iso_country(iso_country)
 );
 
-#UPDATE game SET attempts = attempts + 1 WHERE id = ?;
-
-#UPDATE game
-SET current_item = current_item + 1,
-    attempts = 0
-WHERE id = ?;
-
-#CREATE TABLE game (
+CREATE TABLE game (
     id INT AUTO_INCREMENT PRIMARY KEY,
     screen_name VARCHAR(40) NOT NULL,
-
-    -- Pelaajan nykyinen sijainti (ICAO)
     location VARCHAR(10),
-    FOREIGN KEY (location) REFERENCES airport(ident),
-
-    -- CO2-tiedot
     co2_consumed FLOAT DEFAULT 0,
     co2_budget FLOAT DEFAULT 5000,
-
-    -- Esinepeli
     current_item INT DEFAULT 0,
-    attempts INT DEFAULT 0
+    attempts INT DEFAULT 0,
+    FOREIGN KEY (location) REFERENCES airport(ident)
 );
 
-#CREATE TABLE flight_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    game_id INT NOT NULL,
-    from_airport VARCHAR(10),
-    to_airport VARCHAR(10),
-    distance FLOAT,
-    co2 FLOAT,
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (game_id) REFERENCES game(id)
+CREATE TABLE goal (
+    id INT PRIMARY KEY,
+    name VARCHAR(40),
+    description VARCHAR(255),
+    icon VARCHAR(255),
+    target VARCHAR(40),
+    target_minvalue INT,
+    target_maxvalue INT,
+    target_text VARCHAR(255)
+);
+
+CREATE TABLE goal_reached (
+    game_id INT,
+    goal_id INT,
+    FOREIGN KEY (game_id) REFERENCES game(id),
+    FOREIGN KEY (goal_id) REFERENCES goal(id)
 );
