@@ -4,8 +4,8 @@ create database ohjelmistopeli;
 #2. Käytä uutta luotua tietokantaa.
 use ohjelmistopeli;
 
-#3. Lisää tietokantaan sql tiedosto, jota on käytetty flight_game:ssa.
-# Minulla tiedosto löytyy tietokoneen C-levyltä o1 kansiosta lp1.sql nimellä
+#3. Lisää tietokantaan sql tiedosto, jota on käytetty flight_game-tietokannassa.
+# Minulla tiedosto löytyy tietokoneen C-levyltä o1 kansiosta lp1.sql nimellä.
 source C:\o1\lp1.sql;
 
 #4. Poistetaan tuodusta qsl- tiedostosta game, goal ja goal_reached-taulut.
