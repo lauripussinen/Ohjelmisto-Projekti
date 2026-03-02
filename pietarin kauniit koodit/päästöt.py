@@ -5,7 +5,7 @@ def lentokentat(icao):
     result = cursor.fetchone()
     return result
 
-# funktio laskee kahden lentokentän etäisyyden
+# funktio laskee kahden lentokentän etäisyyden.
 def etaisyys(icao1, icao2):
     kentta1 = lentokentat(icao1)
     kentta2 = lentokentat(icao2)
