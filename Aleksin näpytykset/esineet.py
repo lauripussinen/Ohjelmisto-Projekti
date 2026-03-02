@@ -144,3 +144,24 @@ CREATE TABLE goal_reached (
     FOREIGN KEY (game_id) REFERENCES game(id),
     FOREIGN KEY (goal_id) REFERENCES goal(id)
 );
+
+CREATE TABLE item (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nimi VARCHAR(100),
+    maa CHAR(2),
+    vihje1 VARCHAR(255),
+    vihje2 VARCHAR(255),
+    vihje3 VARCHAR(255),
+    FOREIGN KEY (maa) REFERENCES iso_country(iso_country)
+);
+
+CREATE TABLE flight_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    game_id INT,
+    from_airport VARCHAR(10),
+    to_airport VARCHAR(10),
+    distance_km FLOAT,
+    co2_used FLOAT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (game_id) REFERENCES game(id)
+);
