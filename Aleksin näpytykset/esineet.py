@@ -164,3 +164,26 @@ CREATE TABLE item (
 
 -- 5. Tarkista lopputulos
 SHOW TABLES;
+
+
+CREATE TABLE game (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    screen_name VARCHAR(40),
+    location VARCHAR(10),
+    co2_consumed FLOAT DEFAULT 0,
+    co2_budget FLOAT DEFAULT 5000,
+    current_item INT DEFAULT 0,
+    attempts INT DEFAULT 0,
+    FOREIGN KEY (location) REFERENCES airport(ident)
+);
+
+CREATE TABLE game (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    screen_name VARCHAR(40),
+    location CHAR(4),
+    co2_consumed FLOAT DEFAULT 0,
+    co2_budget FLOAT DEFAULT 5000,
+    current_item INT DEFAULT 0,
+    attempts INT DEFAULT 0,
+    FOREIGN KEY (location) REFERENCES airport(ident)
+);
