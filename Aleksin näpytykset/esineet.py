@@ -115,3 +115,52 @@ CREATE TABLE item (
     vihje3 VARCHAR(255),
     FOREIGN KEY (maa) REFERENCES country(code)
 );
+
+-- 1. Luo tietokanta ja siirry siihen
+CREATE DATABASE demogame;
+USE demogame;
+
+-- 2. Tuo lentokenttäkurssin tietokanta (muuta polku omaksi)
+-- source path/to/lp.sql
+
+
+-- 3. Poista kaikki taulut joita peli ei käytä
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS goal;
+DROP TABLE IF EXISTS goal_reached;
+DROP TABLE IF EXISTS ports;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- 4. Luo pelin tarvitsemat taulut
+
+-- PELAAJAN TILA
+CREATE TABLE game (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    screen_name VARCHAR(40),
+    location VARCHAR(10),
+    co2_consumed FLOAT DEFAULT 0,
+    co2_budget FLOAT DEFAULT 5000,
+    current_item INT DEFAULT 0,
+    attempts INT DEFAULT 0,
+    FOREIGN KEY (location) REFERENCES airport(ident)
+);
+
+
+-- ESINEET JA VIHJEET
+CREATE TABLE item (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nimi VARCHAR(100),
+    maa CHAR(2),
+    vihje1 VARCHAR(255),
+    vihje2 VARCHAR(255),
+    vihje3 VARCHAR(255),
+    FOREIGN KEY (maa) REFERENCES country(code)
+);
+
+
+-- 5. Tarkista lopputulos
+SHOW TABLES;
