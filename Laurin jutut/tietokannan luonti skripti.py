@@ -5,6 +5,7 @@ create database ohjelmistopeli;
 use ohjelmistopeli;
 
 #3. lisää tietokantaan sql tiedosto, jota on käytetty flight_game:ssa.
+# Minulla tiedosto löytyy tietokoneen C-levyltä o1 kansiosta lp1.sql nimellä
 source C:\o1\lp1.sql;
 
 #4. poistetaan tuodusta qsl- tiedostosta game, goal ja goal_reached-taulut.
@@ -34,7 +35,7 @@ create table item (
       vihje1       varchar(255) null,
       vihje2       varchar(255) null,
       vihje3       varchar(255) null
-  )
+)
 	charset=latin1;
 
 #ryhmän 3 Ohjlemisto 1 ohjelmistopeli-tietokanta on nyt luotu ja valmis.
