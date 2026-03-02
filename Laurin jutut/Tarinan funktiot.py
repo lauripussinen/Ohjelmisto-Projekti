@@ -3,8 +3,8 @@ import tarinat
 for rivi in tarinat.haejohdanto():
         print(rivi)
 
-for rivi in tarinat.haejohdanto1():
+for rivi in tarinat.haevälitarina():
         print(rivi)
 
-for rivi in tarinat.haejohdanto2():
+for rivi in tarinat.kirje():
         print(rivi)
