@@ -8,7 +8,7 @@ use ohjelmistopeli;
 # Minulla tiedosto löytyy tietokoneen C-levyltä o1 kansiosta lp1.sql nimellä.
 source C:\o1\lp1.sql;
 
-#4. Poistetaan tuodusta qsl- tiedostosta game, goal ja goal_reached-taulut.
+#4. Poistetaan tuodusta qsl-tiedostosta game, goal ja goal_reached-taulut.
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS game;
 DROP TABLE IF EXISTS goal;
