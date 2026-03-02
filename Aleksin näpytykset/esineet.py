@@ -162,18 +162,14 @@ CREATE TABLE item (
 );
 
 
--- 5. Tarkista lopputulos
-SHOW TABLES;
-
-CREATE TABLE game (
+CREATE TABLE item (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    screen_name VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
-    location VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
-    co2_consumed FLOAT DEFAULT 0,
-    co2_budget FLOAT DEFAULT 5000,
-    current_item INT DEFAULT 0,
-    attempts INT DEFAULT 0,
-    FOREIGN KEY (location) REFERENCES airport(ident)
+    nimi VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+    maa VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+    vihje1 VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+    vihje2 VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+    vihje3 VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+    FOREIGN KEY (maa) REFERENCES country(code)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=latin1
   COLLATE=latin1_swedish_ci;
