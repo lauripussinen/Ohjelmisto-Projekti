@@ -1,21 +1,21 @@
-# 1. luo aluksi uusi tietokanta.
+# 1. Luo aluksi uusi tietokanta.
 create database ohjelmistopeli;
 
-#2. käytä uutta luotua tietokantaa.
+#2. Käytä uutta luotua tietokantaa.
 use ohjelmistopeli;
 
-#3. lisää tietokantaan sql tiedosto, jota on käytetty flight_game:ssa.
+#3. Lisää tietokantaan sql tiedosto, jota on käytetty flight_game:ssa.
 # Minulla tiedosto löytyy tietokoneen C-levyltä o1 kansiosta lp1.sql nimellä
 source C:\o1\lp1.sql;
 
-#4. poistetaan tuodusta qsl- tiedostosta game, goal ja goal_reached-taulut.
+#4. Poistetaan tuodusta qsl- tiedostosta game, goal ja goal_reached-taulut.
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS game;
 DROP TABLE IF EXISTS goal;
 DROP TABLE IF EXISTS goal_reached;
 SET FOREIGN_KEY_CHECKS = 1;
 
-#5. luodaan ensiksi uusi game-taulu.
+#5. Luodaan ensiksi uusi game-taulu.
 CREATE TABLE game (
 	id int auto_increment primary key,
     screen_name   varchar(40) NULL,
@@ -27,7 +27,7 @@ CREATE TABLE game (
 )
 	charset=latin1;
 
-#6. luodaan lopuksi oma item-taulu.
+#6. Luodaan lopuksi oma item-taulu.
 create table item (
       id int auto_increment primary key,
       nimi         varchar(100) null,
@@ -38,4 +38,8 @@ create table item (
 )
 	charset=latin1;
 
-#ryhmän 3 Ohjlemisto 1 ohjelmistopeli-tietokanta on nyt luotu ja valmis.
+#7. Tarkistetaan onko tietokanta halutun mukainen
+show tables;
+
+#9. Jos ja kun tulostuu seuraavat taulut: airport, country, game ja itmes,
+# on ryhmän 3 ohjelmistopeli-tietokanta luotu onnistuneesti.
