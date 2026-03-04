@@ -52,12 +52,16 @@ def etaisyys(icao1, icao2):
     p2 = (k2["latitude_deg"], k2["longitude_deg"])
     return distance.distance(p1, p2).km
 
-def co2(km):
-    return km * 0.2
-
+def vaikeustaso(H, K, V, km, vaikeustaso):
+    if vaikeustaso == 'H':
+        return km * 0.2
+    elif vaikeustaso == 'K':
+        return km * 0.4
+    elif vaikeustaso == 'V':
+        return km * 0.6
 
 def luo_peli(nimi, aloitus_icao):
-    sql = 'INSERT INTO game (screen_name, location, co2_consumed, co2_budget, current_item, attempts) VALUES (%s, %s, 0, 5000, 0, 0)'
+    sql = 'INSERT INTO game (screen_name, location, co2_consumed, co2_budget, current_item, attempts, difficulty) VALUES (%s, %s, 0, 5000, 0, 0, %s)'
     cursor = yhteys.cursor()
     cursor.execute(sql, (nimi, aloitus_icao))
     yhteys.commit()
@@ -68,17 +72,17 @@ def hae_peli(game_id):
     cursor.execute("SELECT * FROM game WHERE id = %s", (game_id,))
     return cursor.fetchone()
 
-def paivita_peli(game_id, location, co2_consumed, current_item, attempts):
+def paivita_peli(game_id, location, co2_consumed, current_item, attempts, difficulty):
     sql = """
         UPDATE game
-        SET location=%s, co2_consumed=%s, current_item=%s, attempts=%s
+        SET location=%s, co2_consumed=%s, current_item=%s, attempts=%s, diificulty=%s
         WHERE id=%s
     """
     cursor = yhteys.cursor()
     cursor.execute(sql, (location, co2_consumed, current_item, attempts, game_id))
     yhteys.commit()
 
-# --- VIHJEET JA TARKISTUS ---
+#VIHJEET JA TARKISTUS
 def anna_vihje(esine, yritykset):
     if yritykset == 0:
         return esine["vihje1"]
@@ -103,7 +107,7 @@ def lenna(game_id, kohde_maa):
 
 
     km = etaisyys(nykyinen_icao, kohde_icao)
-    paasto = co2(km)
+    paasto = vaikeustaso(km)
 
     if peli["co2_consumed"] + paasto > peli["co2_budget"]:
         print(" Et voi lentää kyseiseen maahan! CO2-budjetti ylittyisi ja peli loppuisi.")
