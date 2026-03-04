@@ -17,16 +17,16 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 #5. Luodaan ensiksi uusi game-taulu.
 CREATE TABLE game (
-	id int auto_increment primary key,
-    screen_name   varchar(40) NULL,
-    location      varchar(40) NULL,
-    co2_consumed  float default 0,
-    co2_budget    float default 5000,
-    current_item  int default 0,
-    attempts      int default 0,
-    difficulty    varchar(40) NULL
+    id int auto_increment primary key,
+    screen_name varchar(40) NOT NULL UNIQUE,
+    location varchar(40) NOT NULL,
+    co2_consumed float default 0,
+    co2_budget float default 5000,
+    current_item int default 0,
+    attempts int default 0,
+    difficulty varchar(40) NOT NULL
 )
-	charset=latin1;
+charset=latin1;
 
 #6. Luodaan lopuksi oma item-taulu.
 create table item (
