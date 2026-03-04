@@ -7,6 +7,11 @@ def etaisyys(icao1, icao2):
 
     return distance.distance(p1, p2).km
 
-# funktio laskee co2 päästöt kahden lentokentän välillä
-def co2(km):
-    return km * 0.2
+# funktio laskee co2 päästöt kahden lentokentän välillä riippuen pelin vaikeustasosta
+def vaikeustaso(H, K, V, km, vaikeustaso):
+    if vaikeustaso == 'H':
+        return km * 0.2
+    elif vaikeustaso == 'K':
+        return km * 0.4
+    elif vaikeustaso == 'V':
+        return km * 0.6
