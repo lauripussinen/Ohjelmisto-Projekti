@@ -5,7 +5,7 @@ from geopy import distance
 yhteys = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Allu8221!",
+    password="OMA SALASANA",
     database="ohjelmistopeli"
 )
 
