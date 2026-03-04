@@ -19,6 +19,22 @@ tarina_funktiot = {
     "Taskukello": Tarinat.taskukello
 }
 
+def resetoi_peli(game_id, aloitus_icao, difficulty):
+    sql = 'UPDATE game SET location=%s, co2_consumed=0, current_item=0, attempts=0, difficulty=%s WHERE id=%s'
+    cursor = yhteys.cursor()
+    cursor.execute(sql, (aloitus_icao, difficulty, game_id))
+    yhteys.commit()
+    cursor.close()
+
+def hae_maan_iso_koodi(nimi):
+    sql = 'SELECT iso_country FROM country WHERE name = %s'
+    cursor = yhteys.cursor(dictionary=True)
+    cursor.execute(sql, (nimi,))
+    tulos = cursor.fetchone()
+    cursor.close()
+    if tulos:
+        return tulos["iso_country"]
+
 def hae_esineet():
     cursor = yhteys.cursor(dictionary=True)
     cursor.execute("SELECT * FROM item")
@@ -51,7 +67,6 @@ def vaikeustaso(km, difficulty):
         return km * 0.4
     elif difficulty == 'VAIKEA':
         return km * 0.5
-    return km * 0.2
 
 def luo_peli(nimi, aloitus_icao, difficulty):
     sql = 'INSERT INTO game (screen_name, location, co2_consumed, co2_budget, current_item, attempts, difficulty) VALUES (%s, %s, 0, 5000, 0, 0, %s)'
@@ -149,21 +164,28 @@ if vanha_peli:
 
     if jatka == "KYLLÄ":
         game_id = vanha_peli["id"]
+        print(f"Peli jatkuu! Olet kuluttanut CO2:sta {vanha_peli['co2_consumed']}. Muista, että budjetti on 5000!")
     else:
         for rivi in Tarinat.johdanto():
             print(rivi)
+        print("Peli alkaa! CO2-budjetti: 5000")
         aloitus = 'EFHK'
         difficulty = input("Valitse vaikeustaso (HELPPO/KESKIVAIKEA/VAIKEA): ").upper()
-        game_id = luo_peli(nimi, aloitus, difficulty)
+        resetoi_peli(vanha_peli["id"], aloitus, difficulty)
+        game_id = vanha_peli["id"]
+
 
 # Jos tallennettua peliä ei ole
 else:
+    for rivi in Tarinat.johdanto():
+        print(rivi)
+        print("Peli alkaa! CO2‑budjetti: 5000")
     aloitus = 'EFHK'
     difficulty = input("Valitse vaikeustaso (HELPPO/KESKIVAIKEA/VAIKEA): ").upper()
     game_id = luo_peli(nimi, aloitus, difficulty)
 
 esineet = hae_esineet()
-print("Peli on käynnissä! Muista, CO2-budjettisi on 5000!")
+
 
 # Pelisilmukka
 peli_ohi = False
@@ -180,7 +202,12 @@ while not peli_ohi:
     esine = esineet[peli_tila["current_item"]]
     print("Vihje:", anna_vihje(esine, peli_tila["attempts"]))
 
-    pelaajan_maa = input("Mihin maahan haluat lentää? ").upper()
+    maan_nimi = input("Mihin maahan haluat lentää? ")
+    pelaajan_maa = hae_maan_iso_koodi(maan_nimi)
+
+    if not pelaajan_maa:
+        print("Tuntematon maa. Yritä uudestaan.")
+        continue
 
     # Tarkistetaan CO2-budjetti
     if not lenna(game_id, pelaajan_maa):
