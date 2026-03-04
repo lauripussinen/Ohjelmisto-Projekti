@@ -80,5 +80,5 @@ INSERT INTO item (nimi, maa, vihje1, vihje2, vihje3) VALUES
 #8. Tarkistetaan onko tietokanta halutun mukainen
 show tables;
 
-#10. Jos ja kun tulostuu seuraavat taulut: airport, country, game ja itmes,
+#9. Jos ja kun tulostuu seuraavat taulut: airport, country, game ja itmes,
 # on ryhmän 3 ohjelmistopeli-tietokanta luotu onnistuneesti.
