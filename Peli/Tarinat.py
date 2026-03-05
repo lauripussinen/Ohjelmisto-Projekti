@@ -9,14 +9,14 @@ def johdanto():
 
 
 
-kirje = ('Rakas, ajattelin sinua tänään, kun keitin aamukahvit ja katselin ikkunasta, '
-         'kuinka valo hiipi hiljaa pihan yli. Sinä tulit mieleeni niin kirkkaasti, että oli pakko tarttua kynään. Tai no, '
-         'tähän nykyaikaiseen kirjoittamiseen ja lähettää sinulle pieni tervehdys. Toivon, että muistat välillä pysähtyä. '
+kirje_teksti = ('Rakas, ajattelin sinua tänään, kun keitin aamukahvit ja katselin ikkunasta, '
+         'kuinka valo hiipi hiljaa pihan yli. Sinä tulit mieleeni niin kirkkaasti, että oli pakko tarttua kynään '
+         'ja lähettää sinulle pieni tervehdys. Toivon, että muistat välillä pysähtyä. '
          'Elämä kulkee usein niin kovaa, että tärkeimmät hetket vilahtavat ohi, jos ei malta hengähtää. Minä olen oppinut, '
          'että kiire ei vie mihinkään, mutta rauha vie kaikkialle. Pidä siis huolta itsestäsi. Ja muista: '
          'elämä ei ole kilpailu, vaan matka, jossa jokainen askel on arvokas.Lämpimin ajatuksin, Mummo')
 wrapper2 = textwrap.TextWrapper(width=100, break_long_words=False, replace_whitespace=False)
-toinen = wrapper2.wrap(text=kirje)
+toinen = wrapper2.wrap(text=kirje_teksti)
 def kirje():
     return toinen
 

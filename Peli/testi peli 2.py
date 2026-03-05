@@ -6,8 +6,8 @@ yhteys = mysql.connector.connect(
     host='localhost',
     port=3306,
     database='ohjelmistopeli',
-    user='root',
-    password='291198',
+    user='lauri',
+    password='090799',
     autocommit=True
 )
 
@@ -131,13 +131,11 @@ def tarkista_esine(game_id, pelaajan_maa, esineet):
     indeksi = peli["current_item"]
     yritykset = peli["attempts"]
     esine = esineet[indeksi]
-
     if tarkista_maa(pelaajan_maa, esine):
         print("Löysit esineen:", esine["nimi"])
         if esine["nimi"] in tarina_funktiot:
             for rivi in tarina_funktiot[esine["nimi"]]():
                 print(rivi)
-
         paivita_peli(game_id, peli["location"], peli["co2_consumed"], indeksi + 1, 0, peli["difficulty"])
         return True
     else:
@@ -147,21 +145,18 @@ def tarkista_esine(game_id, pelaajan_maa, esineet):
         paivita_peli(game_id, peli["location"], peli["co2_consumed"], indeksi, yritykset, peli["difficulty"])
         return False
 
-
-
+#Peli alkaa
 nimi = input("Anna pelaajan nimi: ")
 vanha_peli = hae_pelaajan_peli(nimi)
 
-# Jos pelaajalla on tallennettu peli
+
 if vanha_peli:
     print(f"Löydettiin tallennettu peli pelaajalle {nimi}.")
     print(f"Nykyinen maa: {vanha_peli['location']}")
     print(f"CO2-kulutus: {vanha_peli['co2_consumed']} / {vanha_peli['co2_budget']}")
     print(f"Löydettyjä mummon esineitä: {vanha_peli['current_item']}")
     print(f"Vaikeustaso: {vanha_peli['difficulty']}")
-
     jatka = input("Haluatko jatkaa tallennettua peliä? (KYLLÄ/EN): ").upper()
-
     if jatka == "KYLLÄ":
         game_id = vanha_peli["id"]
         print(f"Peli jatkuu! Olet kuluttanut CO2:sta {vanha_peli['co2_consumed']}. Muista, että budjetti on 5000!")
@@ -173,9 +168,6 @@ if vanha_peli:
         difficulty = input("Valitse vaikeustaso (HELPPO/KESKIVAIKEA/VAIKEA): ").upper()
         resetoi_peli(vanha_peli["id"], aloitus, difficulty)
         game_id = vanha_peli["id"]
-
-
-# Jos tallennettua peliä ei ole
 else:
     for rivi in Tarinat.johdanto():
         print(rivi)
@@ -183,33 +175,28 @@ else:
     aloitus = 'EFHK'
     difficulty = input("Valitse vaikeustaso (HELPPO/KESKIVAIKEA/VAIKEA): ").upper()
     game_id = luo_peli(nimi, aloitus, difficulty)
-
 esineet = hae_esineet()
 
-
-# Pelisilmukka
+# Pelin silmukka
 peli_ohi = False
-
-while not peli_ohi:
+while peli_ohi == False:
     peli_tila = hae_peli(game_id)
 
-    # Kaikki esineet löydetty
+    #Kaikki esineet löydetty ja peli päättyy voittoon.
     if peli_tila["current_item"] >= len(esineet):
-        print("Olet löytänyt kaikki Mummon hävittäneet esineet.")
+        print("Onneksi olkoon, olet löytänyt kaikki mummon hävittäneet esineet.")
         peli_ohi = True
         continue
 
     esine = esineet[peli_tila["current_item"]]
     print("Vihje:", anna_vihje(esine, peli_tila["attempts"]))
-
     maan_nimi = input("Mihin maahan haluat lentää? ")
     pelaajan_maa = hae_maan_iso_koodi(maan_nimi)
-
     if not pelaajan_maa:
         print("Tuntematon maa. Yritä uudestaan.")
         continue
 
-    # Tarkistetaan CO2-budjetti
+    # Tarkistetaan CO2-budjetin ylitys ja peli päättyy häviöön.
     if not lenna(game_id, pelaajan_maa):
         print("CO2-budjetti loppui! Olet saastuttanut liikaa ja peli loppuu tähän.")
         peli_ohi = True
