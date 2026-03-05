@@ -77,8 +77,8 @@ INSERT INTO item (nimi, maa, vihje1, vihje2, vihje3) VALUES
     'Kirje sijaitsee maassa, mistä Dracula on kotoisin.'
 );
 
-#8. Tarkistetaan onko tietokanta halutun mukainen
+#8. Tarkistetaan onko tietokanta halutun mukainen eli, että oikeat taulut löytyvät.
 show tables;
 
-#9. Jos ja kun tulostuu seuraavat taulut: airport, country, game ja itmes,
+#9. Jos ja kun tulostuu seuraavat taulut: airport, country, game ja items,
 # on ryhmän 3 ohjelmistopeli-tietokanta luotu onnistuneesti.

@@ -1,7 +1,4 @@
-import tarinat
-
-for rivi in tarinat.haejohdanto():
-        print(rivi)
+#Kun jokin esine löytyy, tulostuu oikea tarina esineelle, nämä löytyvät esineen tarkistus funktiosta.
 
 for rivi in tarinat.kirje():
         print(rivi)
